@@ -48,3 +48,17 @@ def login_db(identificator, password):
         if user and user.password == password:
             return {'status':1, 'message': user.id}
         return {'status':0, 'message': 'Неверный логин или пароль'}
+
+def delete_db(post_id):
+    with next(get_db()) as db:
+        post = db.query(Post).filter_by(id=post_id)
+        if post:
+            db.commit()
+            db.delete(post)
+            return "Пост успешно удален"
+
+def get_all_users_db():
+    with next(get_db()) as db:
+        all_user = db.query(User).all()
+
+        return all_user
