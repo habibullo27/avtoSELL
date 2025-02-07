@@ -53,8 +53,8 @@ def delete_db(post_id):
     with next(get_db()) as db:
         post = db.query(Post).filter_by(id=post_id)
         if post:
-            db.commit()
             db.delete(post)
+            db.commit()
             return "Пост успешно удален"
 
 def get_all_users_db():
