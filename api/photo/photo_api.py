@@ -42,9 +42,9 @@ async def change_text(text_id: int, new_text:str):
 
 @photo_router.delete('/delete')
 async def del_post(post_id):
-    reilt = delete_post_db(post_id)
+    result = delete_post_db(post_id)
 
-    return reilt
+    return result
 
 
 

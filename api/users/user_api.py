@@ -37,7 +37,7 @@ async def login_user(request: Request):
 @users_router.get("/get_all_users")
 async def get_all_users():
 
-    resylt = get_all_users_db()
+    result = get_all_users_db()
 
-    return resylt
+    return result
 
