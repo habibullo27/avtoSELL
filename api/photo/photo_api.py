@@ -3,7 +3,7 @@ from fastapi import APIRouter, UploadFile, File
 import random
 import imghdr
 
-from database.postservice import change_text_db, delete_post_db
+from database.postservice import change_text_db, delete_post_db, delete_text
 
 photo_router = APIRouter(prefix="/photo_avto",
                          tags=["Фотографии avto"])
@@ -26,6 +26,13 @@ async def add_photo2(post_id: int,
             return {"status": 1, "message": "фото вашего avto успешно загружено:) "}
     return {"status": 0, "message": "ошибка загрузки:( "}
 
+@photo_router.delete("/delete_post/")
+async def delete_post(post_id: int):
+    result = delete_post_db(post_id)
+    if result:
+        return {"status": 1, "message": "Пост успешно удален"}
+    return {"status": 0, "message": "нету такого поста"}
+
 
 @photo_router.post("/add_text")
 async def add_text(text_id:int, text: str):
@@ -34,17 +41,20 @@ async def add_text(text_id:int, text: str):
         file.write("\n"+text)
         return {"status": 1, "message": "описание вашего avto успешно загружено, ждите звонка! "}
 
+@photo_router.delete("delete_text")
+async def delete_text(text_id:int):
+    result = delete_text(text_id)
+    if result:
+        return {"status": 1, "message": "Текст успешно удален"}
+    return {"status": 0, "message": "нету такого текста"}
+
 @photo_router.put("/change_text_db")
 async def change_text(text_id: int, new_text:str):
     result = change_text_db(text_id, new_text)
     if result:
         return {'message': result}
 
-@photo_router.delete('/delete')
-async def del_post(post_id):
-    result = delete_post_db(post_id)
 
-    return result
 
 
 

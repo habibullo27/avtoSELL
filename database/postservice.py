@@ -1,3 +1,4 @@
+from api.photo.photo_api import delete_post
 from .models import Post, Photo
 from datetime import datetime
 from database import get_db
@@ -31,6 +32,17 @@ def delete_post_db(post_id):
     # delete_post_photo = db.query(Photo).filter_by(post_id=post_id).first()
     if delete_post:
         db.delete(delete_post)
+        db.commit()
+        db.refresh()
+        return 'Успешно удалено'
+    else:
+        return False
+
+def delete_text(text_id):
+    db = next(get_db())
+    delete_text = db.query(Post).filter_by(id=text_id).first()
+    if delete_text:
+        db.delete(delete_text)
         db.commit()
         db.refresh()
         return 'Успешно удалено'
