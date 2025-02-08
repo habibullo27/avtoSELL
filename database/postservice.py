@@ -1,4 +1,4 @@
-from api.photo.photo_api import delete_post
+
 from .models import Post, Photo
 from datetime import datetime
 from database import get_db
@@ -38,7 +38,7 @@ def delete_post_db(post_id):
     else:
         return False
 
-def delete_text(text_id):
+def delete_text_db(text_id):
     db = next(get_db())
     delete_text = db.query(Post).filter_by(id=text_id).first()
     if delete_text:

@@ -3,7 +3,7 @@ from fastapi import APIRouter, UploadFile, File
 import random
 import imghdr
 
-from database.postservice import change_text_db, delete_post_db, delete_text
+from database.postservice import change_text_db, delete_post_db, delete_text_db
 
 photo_router = APIRouter(prefix="/photo_avto",
                          tags=["Фотографии avto"])
@@ -43,7 +43,7 @@ async def add_text(text_id:int, text: str):
 
 @photo_router.delete("delete_text")
 async def delete_text(text_id:int):
-    result = delete_text(text_id)
+    result = delete_text_db(text_id)
     if result:
         return {"status": 1, "message": "Текст успешно удален"}
     return {"status": 0, "message": "нету такого текста"}
